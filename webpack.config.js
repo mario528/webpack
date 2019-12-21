@@ -28,5 +28,21 @@ module.exports = {
                 collapseWhitespace: false        // 折叠空行
             }
         })
-    ]
+    ],
+    // 模块
+    module: {
+        rules: [
+            // 处理css文件 css-loader 解析 @import style-loader 把css插入到head中
+            // loader执行顺序 从右向左执行
+            {
+                test: /\.css$/,
+                use: [{
+                    loader: 'style-loader',
+                    options: {
+                        insert: 'top'         // 文件插入顺序 top 置顶
+                    }
+                }, 'css-loader']
+            }
+        ]
+    }
 }
