@@ -1,0 +1,22 @@
+{
+  "name": "webpack-learn",
+  "version": "1.0.0",
+  "description": "从头到尾撸一个webpack",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mario528/webpack.git"
+  },
+  "keywords": [
+    "webpack"
+  ],
+  "author": "majiaao",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mario528/webpack/issues"
+  },
+  "homepage": "https://github.com/mario528/webpack#readme"
+}
