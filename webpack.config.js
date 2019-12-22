@@ -5,6 +5,7 @@
 // v4 webpack tabTable钩子
 const path = require('path') 
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
     mode: 'development',              // 打包模式 development production
     devServer: {                      // webpack-dev-server 配置
@@ -25,23 +26,33 @@ module.exports = {
             filename: 'index.html',
             minify: {                           // 压缩html
                 removeAttributeQuotes: true,    // 将双引号转化为单引号
-                collapseWhitespace: false        // 折叠空行
+                collapseWhitespace: false       // 折叠空行
             }
-        })
+        }),
+        new MiniCssExtractPlugin({              // 将css代码以link标签插入html模版中
+            filename: 'main.css'
+        })            
     ],
     // 模块
     module: {
         rules: [
             // 处理css文件 css-loader 解析 @import style-loader 把css插入到head中
             // loader执行顺序 从右向左执行
+            // 自动添加浏览器前缀 autoprefixer postcss-loader
             {
                 test: /\.css$/,
-                use: [{
-                    loader: 'style-loader',
-                    options: {
-                        insert: 'top'         // 文件插入顺序 top 置顶
-                    }
-                }, 'css-loader']
+                use: [
+                    {
+                        loader: MiniCssExtractPlugin.loader
+                    },
+                // {
+                //     loader: 'style-loader',
+                //     options: {
+                //         insert: 'top'         // 文件插入顺序 top 置顶
+                //     }
+                // }, 
+                'css-loader',
+                'postcss-loader']
             }
         ]
     }
