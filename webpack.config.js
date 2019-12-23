@@ -53,6 +53,18 @@ module.exports = {
                 // }, 
                 'css-loader',
                 'postcss-loader']
+            },
+            // 匹配js es6 -> es5
+            {
+                test: /\.js$/,
+                use: [{
+                    loader: 'babel-loader',
+                    options: {
+                        presets: [
+                            '@babel/preset-env'
+                        ]
+                    }
+                }]
             }
         ]
     }
