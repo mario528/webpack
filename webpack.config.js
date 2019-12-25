@@ -13,7 +13,7 @@ module.exports = {
         progress: true,
         contentBase: './dist',
         open: true,
-        // compress: true                // gzip压缩
+        compress: true                // gzip压缩
     },
     entry: './src/index.js',   // 打包入口
     output: {
@@ -39,6 +39,7 @@ module.exports = {
             // 处理css文件 css-loader 解析 @import style-loader 把css插入到head中
             // loader执行顺序 从右向左执行
             // 自动添加浏览器前缀 autoprefixer postcss-loader
+            // 
             {
                 test: /\.css$/,
                 use: [
@@ -57,14 +58,43 @@ module.exports = {
             // 匹配js es6 -> es5
             {
                 test: /\.js$/,
+                exclude: '/node_modules/',
                 use: [{
                     loader: 'babel-loader',
                     options: {
                         presets: [
                             '@babel/preset-env'
+                        ],
+                        plugins: [
+                            // '@babel/plugin-transform-runtime'
+                            '@babel/plugin-proposal-class-properties'
                         ]
                     }
                 }]
+            },
+            // {
+            //     test: /\.js$/,
+            //     exclude: '/node_modules/',
+            //     use: [{
+            //         loader: 'eslint-loader',
+            //         options: {
+            //           enforce: 'pre'
+            //         }
+            //     }]
+            // }
+            // 图片加载loader file-loader
+            // 当文件小时 使用url-loader将图片转化为base64格式
+            {
+                test: /\.png|.jpg|.gif$/,
+                use: [
+                    {
+                        loader: 'url-loader',
+                        options: {
+                            outputPath: './assets',
+                            limit: 200 * 1024
+                        }
+                    }
+                ]
             }
         ]
     }
