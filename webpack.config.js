@@ -3,17 +3,28 @@
 // v2 webpack高级配置
 // v3 webpack优化策略
 // v4 webpack tabTable钩子
-const path = require('path') 
+const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 module.exports = {
-    mode: 'development',              // 打包模式 development production
+    mode: 'production',              // 打包模式 development production
     devServer: {                      // webpack-dev-server 配置
         port: 8080,
         progress: true,
         contentBase: './dist',
         open: true,
         compress: true                // gzip压缩
+    },
+    // [source-map] 生成.map文件 生成代码映射
+    // [eval-source-map] 不生成.map文件 可以查看出错代码位置
+    // [cheap-module-source-map] 生成.map映射文件 只提示问题语句
+    // [cheap-module-eval-source-map] 不成声.map映射文件 可以查看出错代码位置
+    devtool: 'cheap-module-eval-source-map',
+    watch: true,    // 实时打包
+    watchOptions: {
+        poll: 1000,  // 1秒/poll次
+        aggregateTimeout: 500,   // 防抖
+        ignored: /node_modules/  // 忽略监控文件
     },
     entry: './src/index.js',   // 打包入口
     output: {
