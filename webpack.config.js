@@ -6,6 +6,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 module.exports = {
     mode: 'production',              // 打包模式 development production
     devServer: {                      // webpack-dev-server 配置
@@ -42,7 +43,10 @@ module.exports = {
         }),
         new MiniCssExtractPlugin({              // 将css代码以link标签插入html模版中
             filename: 'main.css'
-        })            
+        }),
+        new CleanWebpackPlugin({
+            verbose: true
+        })
     ],
     // 模块
     module: {
