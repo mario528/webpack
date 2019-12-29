@@ -13,4 +13,4 @@ let a = 10
 let image = new Image()
 image.src = imgaeAssets
 document.body.appendChild(image)
-console.lo('错误');
+console.log("+++++++",DEV)

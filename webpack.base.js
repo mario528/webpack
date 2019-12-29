@@ -34,7 +34,23 @@ module.exports = {
         filename: 'bundle.[hash:8].js',
         path: path.resolve(__dirname, 'dist')   // 打包输出文件 !!绝对路径
     },
-    plugins: [                                  // html-webpack-plugin 将js打包引入html
+    // reslove 解析
+       // alias 别名
+    resolve: {
+        modules: [path.resolve(__dirname, 'node_modules')],
+        alias: { 
+            '@': path.resolve('/src')
+        }
+    },
+    plugins: [   
+        // 定义webpack环境
+        // 定义DEV区分环境              
+        new Webpack.DefinePlugin({
+            // DEV: JSON.stringify('development'),
+            FLAG: 'true',
+            EXPORESSION: '1+1'
+        }),                
+        // html-webpack-plugin 将js打包引入html
         new HtmlWebpackPlugin({
             template: './src/index.html',       // 模版
             filename: 'index.html',
@@ -115,7 +131,7 @@ module.exports = {
                         loader: 'url-loader',
                         options: {
                             outputPath: './assets',
-                            limit: 400 * 1024
+                            limit: 50 * 1024
                         }
                     }
                 ]
