@@ -1,3 +1,9 @@
+// 当引入jqery时 需要对jquery依次向上打包 
+// 但jquery并为在生产环境引用其他模块 所以可以忽略打包
+import * as jquery from 'jquery'
+// 优化 例 引入moment时间库 moment会引入所有语言包 对于项目来说 只需要引入需要的语言包即可
+import * as moment from 'moment'
+import 'moment/locale/zh-cn';
 console.log('webpack');
 require('./index.css');
 import imgaeAssets from'./image.png'
@@ -14,3 +20,4 @@ let image = new Image()
 image.src = imgaeAssets
 document.body.appendChild(image)
 console.log("+++++++",DEV)
+console.log(moment().format('LLLL'))

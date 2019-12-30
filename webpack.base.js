@@ -43,6 +43,8 @@ module.exports = {
         }
     },
     plugins: [   
+        // 优化 忽略指定模块的引入包
+        new Webpack.IgnorePlugin(/\.\/locale/, /moment/),
         // 定义webpack环境
         // 定义DEV区分环境              
         new Webpack.DefinePlugin({
@@ -75,13 +77,20 @@ module.exports = {
     ],
     // 模块
     module: {
+        // noParse 忽略打包的模块
+        noParse: [
+            /jquery/
+        ],
         rules: [
             // 处理css文件 css-loader 解析 @import style-loader 把css插入到head中
             // loader执行顺序 从右向左执行
             // 自动添加浏览器前缀 autoprefixer postcss-loader
-            // 
+            // 优化 exclude 排除loader对指定文件的执行
+            //     include loader只对指定文件进行操作
             {
                 test: /\.css$/,
+                exclude: /node_modules/,
+                include: path.resolve('src'),
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader
