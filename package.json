@@ -8,6 +8,7 @@
     "build": "webpack --config webpack.config.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack --config webpack.dev.js",
+    "dll": "webpack --config webpack.dll.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
