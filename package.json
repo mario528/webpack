@@ -8,6 +8,7 @@
     "build": "webpack --config webpack.config.js",
     "build-prod": "webpack --config webpack.prod.js",
     "build-dev": "webpack --config webpack.dev.js",
+    "dll": "webpack --config webpack.dll.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -49,6 +50,8 @@
   },
   "dependencies": {
     "jquery": "^3.4.1",
-    "moment": "^2.24.0"
+    "moment": "^2.24.0",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
   }
 }
