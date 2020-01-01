@@ -1,21 +1,24 @@
+// webpack 动态链接库
 const path = require('path')
 const Webpack = require('webpack')
 module.exports = {
     mode: 'development',
     entry: {
-        react: ['react','react-dom']
+        dll: ['react','react-dom']
     },
     output: {
-        filename: 'dll_[name].js',
-        path: path.resolve(__dirname, 'dist'),
-        library: '_dll_[name]',   // 接收打包后的参数
-        libraryTarget: 'var' // var dll = 打包后的参数
+        filename: '[name].js',
+        path: path.resolve(__dirname,'dist'),
+        // 用library设定的参数承接打包的结果
+        // libraryTarget 设定用何种方法承接打包结果
+        library: 'dll'
     },
     plugins: [
-        // 生成动态链接库清单 manifest.json 后续打包时会先查找manifest，若已经打包，则跳过打包
+        // 生成动态链接库
         new Webpack.DllPlugin({
-            name: '_dll_[name]',
-            path: path.resolve(__dirname,'dist','manifest.json')
+            name: 'dll',   // name === library
+            path: path.resolve(__dirname,'dist','manifest.json'),
         })
     ]
+
 }

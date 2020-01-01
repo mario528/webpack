@@ -48,7 +48,7 @@ module.exports = {
         // 定义webpack环境
         // 定义DEV区分环境              
         new Webpack.DefinePlugin({
-            // DEV: JSON.stringify('development'),
+            DEV: JSON.stringify('development'),
             FLAG: 'true',
             EXPORESSION: '1+1'
         }),                
@@ -61,6 +61,13 @@ module.exports = {
                 collapseWhitespace: false       // 折叠空行
             }
         }),
+        // 引入动态链接库
+        // 在打包时 现查找动态链接库清单 之后再继续进行打包
+        // !import 因为bundle文件需要依赖dll.js 所以dll.js应在bundle前插入
+        new Webpack.DllReferencePlugin({
+            manifest: path.resolve(__dirname,'dist','manifest.json'),
+            context: __dirname
+        }),
         new MiniCssExtractPlugin({              // 将css代码以link标签插入html模版中
             filename: 'main.css'
         }),
@@ -71,9 +78,9 @@ module.exports = {
                 to: './dist/doc'
             }
         ]),
-        new CleanWebpackPlugin({
-            verbose: true
-        })
+        // new CleanWebpackPlugin({
+        //     verbose: true
+        // })
     ],
     // 模块
     module: {
@@ -112,7 +119,8 @@ module.exports = {
                     loader: 'babel-loader',
                     options: {
                         presets: [
-                            '@babel/preset-env'
+                            '@babel/preset-env',
+                            "@babel/preset-react"
                         ],
                         plugins: [
                             // '@babel/plugin-transform-runtime'
