@@ -10,6 +10,10 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 module.exports = {
+    // 当webpack打包环境是production时 webpack自身会对import引入的模块进行tree-shaking
+    // 将未使用到的变量不进行打包
+    // require 不支持tree-shaking
+    // webpack自身在打包中，会自动省略冗余代码
     mode: 'production',              // 打包模式 development production
     devServer: {                      // webpack-dev-server 配置
         port: 8080,
@@ -64,10 +68,10 @@ module.exports = {
         // 引入动态链接库
         // 在打包时 现查找动态链接库清单 之后再继续进行打包
         // !import 因为bundle文件需要依赖dll.js 所以dll.js应在bundle前插入
-        new Webpack.DllReferencePlugin({
-            manifest: path.resolve(__dirname,'dist','manifest.json'),
-            context: __dirname
-        }),
+        // new Webpack.DllReferencePlugin({
+        //     manifest: path.resolve(__dirname,'dist','manifest.json'),
+        //     context: __dirname
+        // }),
         new MiniCssExtractPlugin({              // 将css代码以link标签插入html模版中
             filename: 'main.css'
         }),
@@ -78,9 +82,9 @@ module.exports = {
                 to: './dist/doc'
             }
         ]),
-        // new CleanWebpackPlugin({
-        //     verbose: true
-        // })
+        new CleanWebpackPlugin({
+            verbose: true
+        })
     ],
     // 模块
     module: {
