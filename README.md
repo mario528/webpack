@@ -1,7 +1,7 @@
 # 从0到1搭建优化webpack
 ## 项目完成情况
-- [ ] v1 完成webpack项目的搭建
-- [ ] v2 优化webpack
+- ✅ v1 完成webpack项目的搭建
+- ✅ v2 优化webpack
 - [ ] v3 实现webpack打包和部分loader
 ## 概念
 > 本段摘自 [webpack中文官网](https://www.webpackjs.com/concepts "webpack中文官网")
