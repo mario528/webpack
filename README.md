@@ -30,3 +30,4 @@
 ### tapable
 tapable暴露出的勾子函数
 - SyncHook
+- SyncBeilHook
